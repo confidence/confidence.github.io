@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.0">Jekyll</generator><link href="http://0.0.0.0:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://0.0.0.0:4000/" rel="alternate" type="text/html" /><updated>2018-07-20T13:12:40+02:00</updated><id>http://0.0.0.0:4000/</id><title type="html">Rebaze Confidence</title><subtitle>Confidence Rebaze SDK</subtitle><entry><title type="html">We joined Hafven Coworking</title><link href="http://0.0.0.0:4000/blog/joined-hafven" rel="alternate" type="text/html" title="We joined Hafven Coworking" /><published>2017-11-01T00:00:00+01:00</published><updated>2017-11-01T00:00:00+01:00</updated><id>http://0.0.0.0:4000/blog/joined-hafven</id><content type="html" xml:base="http://0.0.0.0:4000/blog/joined-hafven">&lt;p&gt;Bla bla..&lt;/p&gt;
+
+&lt;h2 id=&quot;what-to-expect-from-software-developers&quot;&gt;What to expect from software developers&lt;/h2&gt;
+
+&lt;p&gt;This is just a proof of concept, phishing attacks are illegal! Don’t use this in any of your apps. The goal of this blog post is to close the loophole that has been there for many years, and hasn’t been addressed yet. For moral reasons, I decided not to include the actual source code of the popup, however it was shockingly easy to replicate the system dialog.&lt;/p&gt;
+&lt;iframe width=&quot;100%&quot; height=&quot;400px&quot; src=&quot;https://www.youtube.com/embed/kexuG-YcQFA&quot; frameborder=&quot;0&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+
+&lt;h2 id=&quot;why-does-this-work&quot;&gt;Why does this work?&lt;/h2&gt;
+
+&lt;p&gt;iOS asks the user for their iTunes password for many reasons, the most common ones are recently installed iOS operating system updates, or iOS apps that are stuck during installation.&lt;/p&gt;
+
+&lt;p&gt;As a result, users are trained to just enter their Apple ID password whenever iOS prompts you to do so. However, those popups are not only shown on the lock screen, and the home screen, but also inside random apps, e.g. when they want to access iCloud, GameCenter or In-App-Purchases.&lt;/p&gt;
+
+&lt;p&gt;This could easily be abused by any app, just by showing an UIAlertController, that looks exactly like the system dialog.&lt;/p&gt;
+
+&lt;p&gt;Even users who know a lot about technology have a hard time detecting that those alerts are phishing attacks.&lt;/p&gt;
+
+&lt;h2 id=&quot;how-can-you-protect-yourself&quot;&gt;How can you protect yourself&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Hit the home button, and see if the app quits:
+    &lt;ul&gt;
+      &lt;li&gt;If it closes the app, and with it the dialog, then this was a phishing attack&lt;/li&gt;
+      &lt;li&gt;If the dialog and the app are still visible, then it’s a system dialog. The reason for that is that the system dialogs run on a different process, and not as part of any iOS app.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Don’t enter your credentials into a popup, instead, dismiss it, and open the Settings app manually. This is the same concept, like you should never click on links on emails, but instead open the website manually&lt;/li&gt;
+  &lt;li&gt;If you hit the Cancel button on a dialog, the app still gets access to the content of the password field. Even after entering the first characters, the app probably already has your password.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Initially I thought, faking those alerts requires the app developer to know your email. Turns out, some of those auth popups don’t include the email address, making it even easier for phishing apps to ask for the password.&lt;/p&gt;
+
+&lt;h2 id=&quot;proposal&quot;&gt;Proposal&lt;/h2&gt;
+
+&lt;p&gt;Modern web browsers already do an excellent job protecting users from phishing attacks. Phishing within mobile apps is a rather new concept, and therefore still pretty unexplored.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;When asking for the Apple ID from the user, instead of asking for the password directly, ask them to open the settings app&lt;/li&gt;
+  &lt;li&gt;Fix the root of the problem, users shouldn’t constantly be asked for their credentials. It doesn’t affect all users, but I myself had this issue for many months, until it randomly disappeared.&lt;/li&gt;
+  &lt;li&gt;Dialogs from apps could contain the app icon on the top right of the dialog, to indicate an app is asking you, and not the system. This approach is used by push notifications also, this way, an app can’t just send push notifications as the iTunes app.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;I’ve reported this as a radar, which you can dupe: &lt;a href=&quot;https://openradar.appspot.com/radar?id=4952345645416448&quot;&gt;rdar://34885659&lt;/a&gt; 👍&lt;/p&gt;
+
+&lt;p&gt;Sometimes iOS shows the following notification on the lock screen, which opens up the iCloud Settings screen, this is a much better approach than to ask for the password directly: &lt;/p&gt;
+
+&lt;h2 id=&quot;complexity&quot;&gt;Complexity&lt;/h2&gt;
+
+&lt;p&gt;Showing a dialog that looks just like a system popup is super easy, there is no magic or secret code involved, it’s literally the examples provided in the Apple docs, with a custom text.&lt;/p&gt;
+
+&lt;p&gt;I decided not to open source the actual popup code, however, note that it’s less than 30 lines of code and every iOS engineer will be able to quickly build their own phishing code.&lt;/p&gt;
+
+&lt;h2 id=&quot;qa&quot;&gt;Q&amp;amp;A&lt;/h2&gt;
+
+&lt;p&gt;Imagine if everybody read this before posting a comment on HackerNews/Reddit #oneCanDream :)&lt;/p&gt;
+
+&lt;h3 id=&quot;but-i-have-2-factor-enabled-im-safe-right&quot;&gt;But, I have 2-factor enabled, I’m safe, right?&lt;/h3&gt;
+
+&lt;p&gt;Good for you, everybody should use 2-step verification obviously, however many people don’t. At the same time, even if your Apple account is 2FA protected, many users still use the same username/password combination on most web services, meaning if hackers know your Apple ID password, chances are high, they’re gonna try the same combination on other common services.&lt;/p&gt;
+
+&lt;p&gt;Also, even with 2FA enabled accounts, what if the app asked you for your 2 step code? Most users would gladly request a 2FA-token and ask for it, and directly pipe it over to a remote server.&lt;/p&gt;
+
+&lt;h3 id=&quot;apple-would-never-accept-such-an-app-right&quot;&gt;Apple would never accept such an app, right?&lt;/h3&gt;
+
+&lt;p&gt;Apple is doing a great job protecting users from dangerous third party apps, that’s why the App Store is built and provided like it is, that’s why we code sign our application (
+&lt;a href=&quot;https://krausefx.com/blog/the-developer-part-of-ios-code-signing-doesnt-add-any-security-to-anything&quot;&gt;not really, but kind of&lt;/a&gt;).&lt;/p&gt;
+
+&lt;p&gt;However, it’s rather easy to run certain code only after the app is approved, those are not new ideas, but just to give you some ideas:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Use remote code (which is not allowed by itself, except for JavaScript), React Native or a custom JS bridge is your friend&lt;/li&gt;
+  &lt;li&gt;Use the iTunes search API to compare the current version number with the App Store version number (&lt;a href=&quot;https://itunes.apple.com/lookup?bundleId=com.Facebook.Facebook&quot;&gt;example request&lt;/a&gt;), this way the app can automatically enable malicious code after it got approved.&lt;/li&gt;
+  &lt;li&gt;Use a remote configuration tool to enable a feature only after an app is approved by Apple&lt;/li&gt;
+  &lt;li&gt;Use a time-based trigger: just skip running certain code for the first week after submitting the binary, meaning the code will only run once the app is either approved or rejected.&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.theverge.com/2017/4/23/15399438/apple-uber-app-store-fingerprint-program-tim-cook-travis-kalanick&quot;&gt;Pull an Uber and don’t run certain code when the location is near Cupertino&lt;/a&gt; (it’s probably fixed by Apple by now)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The things above is public knowledge, most iOS developers are aware, and I strongly advise against using any of this, Apple will eventually catch you and block your account.&lt;/p&gt;
+
+&lt;p&gt;The point of this list is: While the review process provides a basic safety filter, organisations with bad intent will always find a way to somehow work around the limitations of a platform.&lt;/p&gt;
+
+&lt;h3 id=&quot;phishing-on-mobile-is-that-a-thing-now&quot;&gt;Phishing on mobile? Is that a thing now?&lt;/h3&gt;
+
+&lt;p&gt;This area will become more and more relevant, with users being uninformed, and the mobile operating systems not yet clearly separating system UI and app UI. This is kind of related to
+&lt;a href=&quot;https://github.com/KrauseFx/detect.location&quot;&gt;detect.location&lt;/a&gt;, where apps would write their own, custom image picker to provide a better “experience”, but in reality, with that, they also get full access to your image library, and optionally also your camera (related to
+&lt;a href=&quot;https://github.com/KrauseFx/watch.user&quot;&gt;watch.user&lt;/a&gt;).&lt;/p&gt;
+
+&lt;p&gt;iOS should very clearly distinguish between system UI and app UI elements, so that ideally it’s even obvious for the average smartphone user that something seems off. This is a tricky problem to solve, and web browser are still tackling it, you still have websites that make popups look like macOS / iOS popups, so that many users think it’s a system message.&lt;/p&gt;
+
+&lt;h3 id=&quot;but-but-but-why-is-the-symbol-within-the--is-this-all-fake&quot;&gt;But, but, but, why is the . symbol within the “, is this all fake?&lt;/h3&gt;
+
+&lt;p&gt;Nope, actually, that’s how the system dialog looks like, the . is within the “string notation, so I designed the phishing dialog to also include the same style.&lt;/p&gt;</content><author><name>Toni</name></author><category term="testing" /><summary type="html">Bla bla..</summary></entry><entry><title type="html">Goto Berlin Conference 2017</title><link href="http://0.0.0.0:4000/blog/gotober2017" rel="alternate" type="text/html" title="Goto Berlin Conference 2017" /><published>2017-10-02T00:00:00+02:00</published><updated>2017-10-02T00:00:00+02:00</updated><id>http://0.0.0.0:4000/blog/gotober2017</id><content type="html" xml:base="http://0.0.0.0:4000/blog/gotober2017">&lt;p&gt;Foo&lt;/p&gt;
+
+&lt;h2 id=&quot;what-to-expect-from-software-developers&quot;&gt;What to expect from software developers&lt;/h2&gt;
+
+&lt;p&gt;This is just a proof of concept, phishing attacks are illegal! Don’t use this in any of your apps. The goal of this blog post is to close the loophole that has been there for many years, and hasn’t been addressed yet. For moral reasons, I decided not to include the actual source code of the popup, however it was shockingly easy to replicate the system dialog.&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nd&quot;&gt;@Component&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;service&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;StopLoopWithNormalVariable&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;StopLoopWithNormalVariable&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Thread&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+
+	&lt;span class=&quot;kt&quot;&gt;boolean&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;stop&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+
+	&lt;span class=&quot;nd&quot;&gt;@Activate&lt;/span&gt;
+	&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;activate&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+		&lt;span class=&quot;n&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+	&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+	&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;run&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+		&lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(!&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;stop&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+		&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+	&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+	&lt;span class=&quot;nd&quot;&gt;@Deactivate&lt;/span&gt;
+	&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;deactivate&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+		&lt;span class=&quot;n&quot;&gt;stop&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+	&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&quot;some-thoughts&quot;&gt;Some thoughts&lt;/h3&gt;
+
+&lt;p&gt;Tada. Or here.&lt;/p&gt;</content><author><name>Toni</name></author><category term="testing" /><summary type="html">Foo</summary></entry><entry><title type="html">Rebaze Confidence Articles</title><link href="http://0.0.0.0:4000/blog/rebaze-confidence" rel="alternate" type="text/html" title="Rebaze Confidence Articles" /><published>2017-10-01T00:00:00+02:00</published><updated>2017-10-01T00:00:00+02:00</updated><id>http://0.0.0.0:4000/blog/rebaze-confidence</id><content type="html" xml:base="http://0.0.0.0:4000/blog/rebaze-confidence"></content><author><name>Toni</name></author><category term="testing" /><summary type="html"></summary></entry></feed>

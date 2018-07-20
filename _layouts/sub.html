@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="{{ page.lang | default: site.lang | default: "en" }}">
+
+  {% include head.html %}
+
+  <body>
+
+    <div class="container">
+      <div class="row">
+  <div class="col-sm-4">
+    <div class="p-4">
+      <h3 class="statcard-number">
+        <a href="/"><img class="align-self-start mr-3" src="/assets/c9_icon.png" alt="Generic placeholder image" width="65px" height="65px"></a>Rebaze Confidence
+      </h3>
+    </div>
+  </div>
+  <div class="col-sm-4">
+    <div class="statcard statcard-success p-4">
+      <h3 class="statcard-number">
+        Developer Experience
+      </h3>
+
+      <span class="statcard-desc">the new kingmakers</span>
+    </div>
+  </div>
+  <div class="col-sm-4">
+    <div class="statcard statcard-danger p-4">
+      <h3 class="statcard-number">
+        Software Testing
+      </h3>
+      <span class="statcard-desc">The Immune System</span>
+    </div>
+  </div>
+</div>
+<div class="row"><h1>&nbsp;</h1></div></div>
+  <div class="container">
+    <div class="row">
+  <div class="col-12 col-md-8">
+    {{ content }}
+  </div>
+    <div class="col-6 col-md-4">
+      <button type="button" class="btn btn-lg btn-success">Become a client</button>
+      <p></p>
+      <h3>About Rebaze</h3>
+      <p>The developer-focused consulting boutique. We specialize in developer experience & software testing. </p>
+
+      <h3>Recent Posts</h3>
+      <ul class="iconlist">
+      {% for post in site.posts limit:10 %}
+
+        <li>
+    <span class="icon icon-check"></span>
+    <a href="{{ page.url }}">{{ page.title | escape }}</a>
+  </li>
+
+
+
+      {% endfor %}</ul>
+    </div>
+
+  </div>
+
+    </div>
+    {% include footer.html %}
+
+  </body>
+
+</html>

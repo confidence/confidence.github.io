@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  <meta name="author" content="">
+
+  <title>
+      The Rebaze Way - Developer Experience Consulting Boutique
+  </title>
+    <link href='https://fonts.googleapis.com/css?family=Lora:400,400italic|Work+Sans:300,400,500,600' rel='stylesheet' type='text/css'>
+    <link href="/assets/css/toolkit-startup.css" rel="stylesheet">
+    <link href="/assets/css/application-startup.css" rel="stylesheet">
+    <link href="/assets/css/syntax.css" rel="stylesheet">
+	
+</head>
+
+
+  <body>
+  <div class="container">
+      <div class="row">
+  <div class="col-sm-8">
+    <div class="p-4">
+      <h3 class="statcard-number">
+		  <div class="media">
+		    <a href="/"><img class="align-self-start mr-3" src="/assets/c9_icon.png" alt="Generic placeholder image" width="75px" height="75px"></a>
+		    <div class="media-body">
+		      <h3>The Rebaze Way</h3>
+		      <h5>the developer experience consulting boutique</h5>					  	  
+		    </div>
+		  </div>
+		  
+      </h3>
+    </div>
+  </div>
+  
+  <div class="col-sm-4">
+    <div class="p-4">
+		<a href="/hello.html">
+      <button type="button" class="btn btn-lg btn-success"><span class="icon icon-users"></span>&nbsp;
+        Become a client</button>
+	</a>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row border border-right-0 border-left-0 border-bottom-0" style="padding-top: 2rem;">
+    </div>
+  </div>
+
+
+
+<div class="row"><h1>&nbsp;</h1></div></div>
+  <div class="container">
+    <div class="row">
+  <div class="col-12 col-md-8">
+    
+<article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline"><a href="/blog/joined-hafven">We joined Hafven Coworking</a></h1>
+        <p class="post-meta">
+          <time datetime="2017-11-01T00:00:00+01:00" itemprop="datePublished">
+            
+            Nov 1, 2017
+          </time>
+          
+            • <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">Toni</span></span>
+          </p>
+      </header>
+
+      <div class="post-content" itemprop="articleBody">
+        <p>Bla bla..</p>
+
+<h2 id="what-to-expect-from-software-developers">What to expect from software developers</h2>
+
+<p>This is just a proof of concept, phishing attacks are illegal! Don’t use this in any of your apps. The goal of this blog post is to close the loophole that has been there for many years, and hasn’t been addressed yet. For moral reasons, I decided not to include the actual source code of the popup, however it was shockingly easy to replicate the system dialog.</p>
+<iframe width="100%" height="400px" src="https://www.youtube.com/embed/kexuG-YcQFA" frameborder="0" allowfullscreen=""></iframe>
+
+<h2 id="why-does-this-work">Why does this work?</h2>
+
+<p>iOS asks the user for their iTunes password for many reasons, the most common ones are recently installed iOS operating system updates, or iOS apps that are stuck during installation.</p>
+
+<p>As a result, users are trained to just enter their Apple ID password whenever iOS prompts you to do so. However, those popups are not only shown on the lock screen, and the home screen, but also inside random apps, e.g. when they want to access iCloud, GameCenter or In-App-Purchases.</p>
+
+<p>This could easily be abused by any app, just by showing an UIAlertController, that looks exactly like the system dialog.</p>
+
+<p>Even users who know a lot about technology have a hard time detecting that those alerts are phishing attacks.</p>
+
+<h2 id="how-can-you-protect-yourself">How can you protect yourself</h2>
+
+<ul>
+  <li>Hit the home button, and see if the app quits:
+    <ul>
+      <li>If it closes the app, and with it the dialog, then this was a phishing attack</li>
+      <li>If the dialog and the app are still visible, then it’s a system dialog. The reason for that is that the system dialogs run on a different process, and not as part of any iOS app.</li>
+    </ul>
+  </li>
+  <li>Don’t enter your credentials into a popup, instead, dismiss it, and open the Settings app manually. This is the same concept, like you should never click on links on emails, but instead open the website manually</li>
+  <li>If you hit the Cancel button on a dialog, the app still gets access to the content of the password field. Even after entering the first characters, the app probably already has your password.</li>
+</ul>
+
+<p>Initially I thought, faking those alerts requires the app developer to know your email. Turns out, some of those auth popups don’t include the email address, making it even easier for phishing apps to ask for the password.</p>
+
+<h2 id="proposal">Proposal</h2>
+
+<p>Modern web browsers already do an excellent job protecting users from phishing attacks. Phishing within mobile apps is a rather new concept, and therefore still pretty unexplored.</p>
+
+<ul>
+  <li>When asking for the Apple ID from the user, instead of asking for the password directly, ask them to open the settings app</li>
+  <li>Fix the root of the problem, users shouldn’t constantly be asked for their credentials. It doesn’t affect all users, but I myself had this issue for many months, until it randomly disappeared.</li>
+  <li>Dialogs from apps could contain the app icon on the top right of the dialog, to indicate an app is asking you, and not the system. This approach is used by push notifications also, this way, an app can’t just send push notifications as the iTunes app.</li>
+</ul>
+
+<p>I’ve reported this as a radar, which you can dupe: <a href="https://openradar.appspot.com/radar?id=4952345645416448">rdar://34885659</a> 👍</p>
+
+<p>Sometimes iOS shows the following notification on the lock screen, which opens up the iCloud Settings screen, this is a much better approach than to ask for the password directly: </p>
+
+<h2 id="complexity">Complexity</h2>
+
+<p>Showing a dialog that looks just like a system popup is super easy, there is no magic or secret code involved, it’s literally the examples provided in the Apple docs, with a custom text.</p>
+
+<p>I decided not to open source the actual popup code, however, note that it’s less than 30 lines of code and every iOS engineer will be able to quickly build their own phishing code.</p>
+
+<h2 id="qa">Q&amp;A</h2>
+
+<p>Imagine if everybody read this before posting a comment on HackerNews/Reddit #oneCanDream :)</p>
+
+<h3 id="but-i-have-2-factor-enabled-im-safe-right">But, I have 2-factor enabled, I’m safe, right?</h3>
+
+<p>Good for you, everybody should use 2-step verification obviously, however many people don’t. At the same time, even if your Apple account is 2FA protected, many users still use the same username/password combination on most web services, meaning if hackers know your Apple ID password, chances are high, they’re gonna try the same combination on other common services.</p>
+
+<p>Also, even with 2FA enabled accounts, what if the app asked you for your 2 step code? Most users would gladly request a 2FA-token and ask for it, and directly pipe it over to a remote server.</p>
+
+<h3 id="apple-would-never-accept-such-an-app-right">Apple would never accept such an app, right?</h3>
+
+<p>Apple is doing a great job protecting users from dangerous third party apps, that’s why the App Store is built and provided like it is, that’s why we code sign our application (
+<a href="https://krausefx.com/blog/the-developer-part-of-ios-code-signing-doesnt-add-any-security-to-anything">not really, but kind of</a>).</p>
+
+<p>However, it’s rather easy to run certain code only after the app is approved, those are not new ideas, but just to give you some ideas:</p>
+
+<ul>
+  <li>Use remote code (which is not allowed by itself, except for JavaScript), React Native or a custom JS bridge is your friend</li>
+  <li>Use the iTunes search API to compare the current version number with the App Store version number (<a href="https://itunes.apple.com/lookup?bundleId=com.Facebook.Facebook">example request</a>), this way the app can automatically enable malicious code after it got approved.</li>
+  <li>Use a remote configuration tool to enable a feature only after an app is approved by Apple</li>
+  <li>Use a time-based trigger: just skip running certain code for the first week after submitting the binary, meaning the code will only run once the app is either approved or rejected.</li>
+  <li><a href="https://www.theverge.com/2017/4/23/15399438/apple-uber-app-store-fingerprint-program-tim-cook-travis-kalanick">Pull an Uber and don’t run certain code when the location is near Cupertino</a> (it’s probably fixed by Apple by now)</li>
+</ul>
+
+<p>The things above is public knowledge, most iOS developers are aware, and I strongly advise against using any of this, Apple will eventually catch you and block your account.</p>
+
+<p>The point of this list is: While the review process provides a basic safety filter, organisations with bad intent will always find a way to somehow work around the limitations of a platform.</p>
+
+<h3 id="phishing-on-mobile-is-that-a-thing-now">Phishing on mobile? Is that a thing now?</h3>
+
+<p>This area will become more and more relevant, with users being uninformed, and the mobile operating systems not yet clearly separating system UI and app UI. This is kind of related to
+<a href="https://github.com/KrauseFx/detect.location">detect.location</a>, where apps would write their own, custom image picker to provide a better “experience”, but in reality, with that, they also get full access to your image library, and optionally also your camera (related to
+<a href="https://github.com/KrauseFx/watch.user">watch.user</a>).</p>
+
+<p>iOS should very clearly distinguish between system UI and app UI elements, so that ideally it’s even obvious for the average smartphone user that something seems off. This is a tricky problem to solve, and web browser are still tackling it, you still have websites that make popups look like macOS / iOS popups, so that many users think it’s a system message.</p>
+
+<h3 id="but-but-but-why-is-the-symbol-within-the--is-this-all-fake">But, but, but, why is the . symbol within the “, is this all fake?</h3>
+
+<p>Nope, actually, that’s how the system dialog looks like, the . is within the “string notation, so I designed the phishing dialog to also include the same style.</p>
+
+      </div>
+
+      <p class="extra-info">
+        
+          Tags: testing &nbsp; | &nbsp;
+        
+        <a href="https://github.com/confidence/confidence.github.com/edit/master/_posts/2017-11-01-joined-hafven.md" target="_blank" class="forkButton">
+  <svg viewBox="0 0 16 16" width="16px" height="16px"><path fill="#828282" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/></svg>
+
+  Fork on GitHub
+</a>
+
+      </p>
+    </article>
+  
+  
+<article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline"><a href="/blog/gotober2017">Goto Berlin Conference 2017</a></h1>
+        <p class="post-meta">
+          <time datetime="2017-10-02T00:00:00+02:00" itemprop="datePublished">
+            
+            Oct 2, 2017
+          </time>
+          
+            • <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">Toni</span></span>
+          </p>
+      </header>
+
+      <div class="post-content" itemprop="articleBody">
+        <p>Foo</p>
+
+<h2 id="what-to-expect-from-software-developers">What to expect from software developers</h2>
+
+<p>This is just a proof of concept, phishing attacks are illegal! Don’t use this in any of your apps. The goal of this blog post is to close the loophole that has been there for many years, and hasn’t been addressed yet. For moral reasons, I decided not to include the actual source code of the popup, however it was shockingly easy to replicate the system dialog.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Component</span><span class="o">(</span><span class="n">service</span><span class="o">=</span><span class="n">StopLoopWithNormalVariable</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">StopLoopWithNormalVariable</span> <span class="kd">extends</span> <span class="n">Thread</span> <span class="o">{</span>
+
+	<span class="kt">boolean</span> <span class="n">stop</span><span class="o">;</span>
+
+	<span class="nd">@Activate</span>
+	<span class="kt">void</span> <span class="nf">activate</span><span class="o">()</span> <span class="o">{</span>
+		<span class="n">start</span><span class="o">();</span>
+	<span class="o">}</span>
+
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
+		<span class="k">while</span> <span class="o">(!</span><span class="n">stop</span><span class="o">)</span>
+		<span class="o">;</span>
+	<span class="o">}</span>
+
+	<span class="nd">@Deactivate</span>
+	<span class="kt">void</span> <span class="nf">deactivate</span><span class="o">()</span> <span class="o">{</span>
+		<span class="n">stop</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<hr />
+
+<h3 id="some-thoughts">Some thoughts</h3>
+
+<p>Tada. Or here.</p>
+
+      </div>
+
+      <p class="extra-info">
+        
+          Tags: testing &nbsp; | &nbsp;
+        
+        <a href="https://github.com/confidence/confidence.github.com/edit/master/_posts/2017-10-02-gotober2017.md" target="_blank" class="forkButton">
+  <svg viewBox="0 0 16 16" width="16px" height="16px"><path fill="#828282" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/></svg>
+
+  Fork on GitHub
+</a>
+
+      </p>
+    </article>
+  
+  
+<article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline"><a href="/blog/rebaze-confidence">Rebaze Confidence Articles</a></h1>
+        <p class="post-meta">
+          <time datetime="2017-10-01T00:00:00+02:00" itemprop="datePublished">
+            
+            Oct 1, 2017
+          </time>
+          
+            • <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">Toni</span></span>
+          </p>
+      </header>
+
+      <div class="post-content" itemprop="articleBody">
+        
+
+      </div>
+
+      <p class="extra-info">
+        
+          Tags: testing &nbsp; | &nbsp;
+        
+        <a href="https://github.com/confidence/confidence.github.com/edit/master/_posts/2017-10-01-rebaze-confidence.md" target="_blank" class="forkButton">
+  <svg viewBox="0 0 16 16" width="16px" height="16px"><path fill="#828282" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/></svg>
+
+  Fork on GitHub
+</a>
+
+      </p>
+    </article>
+  
+  
+  <!-- Pagination links -->
+  <div class="pagination">
+    
+      <span class="previous">Newer</span>
+    
+    /
+    
+      <span class="next ">Older</span>
+    
+  </div>
+
+
+  </div>
+    <div class="col-6 col-md-4">
+      <p></p>
+      <h3>About Rebaze</h3>
+      <p>The developer-focused consulting boutique. We specialize in developer experience & software testing. </p>
+
+      <h3>Recent posts</h3>
+      <ul class="iconlist">
+      
+
+        <li>
+    <span class="icon icon-check"></span>
+    <a href="/blog/joined-hafven">We joined Hafven Coworking</a>
+     </li>
+    
+
+        <li>
+    <span class="icon icon-check"></span>
+    <a href="/blog/gotober2017">Goto Berlin Conference 2017</a>
+     </li>
+    
+
+        <li>
+    <span class="icon icon-check"></span>
+    <a href="/blog/rebaze-confidence">Rebaze Confidence Articles</a>
+     </li>
+    </ul>
+      <h3>Opinionated Thoughts</h3>
+      <ul class="iconlist">
+      
+
+        <li>
+    <span class="icon icon-check"></span>
+    <a href="/thoughts/agile">Agile in the real world</a>
+  </li>
+ 
+
+        <li>
+    <span class="icon icon-check"></span>
+    <a href="/thoughts/java">Java</a>
+  </li>
+ 
+
+        <li>
+    <span class="icon icon-check"></span>
+    <a href="/thoughts/osgi">OSGi or Modular Java</a>
+  </li>
+ </ul>
+  </div>
+  
+  
+
+  </div>
+
+    </div>
+    <div class="container">
+  <div class="row" style="padding-top: 5rem;">
+  </div>
+</div>
+<div class="container border rounded">
+  <div class="row">
+    <div class="col-sm">
+	<div class="card" style="width: 20rem;">
+	  <div class="card-body">
+		 <p><a href="#">Services</a></p>
+	 	 <p><a href="#">Clients</a></p>
+   	 	 <p><a href="#">Privacy</a></p>
+      	 	 <p><a href="#">Contact</a></p>
+			
+	  </div>
+	</div>
+    </div>
+    <div class="col-sm">
+  	<div class="card" style="width: 20rem;">
+  	  <div class="card-body">
+  	    <h4 class="card-title">Developer Priority Lane</h4>
+  	    <h6 class="card-subtitle mb-2 text-muted">developers@rebaze.com</h6>
+  	  </div>
+  	</div>
+   
+    </div>
+    <div class="col-sm">
+    	<div class="card" style="width: 20rem;">
+    	  <div class="card-body">
+    	    <h4 class="card-title">Rebaze GmbH</h4>
+    	    <h6 class="card-subtitle mb-2 text-muted">Developer HQ</h6>
+    	    <p class="card-text">Zollstrasse 6<BR/>39114 Magdeburg<BR/>Germany</p>
+    	    <a href="#" class="card-link">Twitter</a>
+    	    <a href="#" class="card-link">Github</a>
+    	  </div>
+    	</div>
+        </div>
+    </div>
+  </div>
+</div> 
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/popper.min.js"></script>
+<script src="assets/js/toolkit.js"></script>
+<script src="assets/js/application.js"></script>
+
+
+  </body>
+
+</html>

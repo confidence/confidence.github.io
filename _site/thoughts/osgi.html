@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  <meta name="author" content="">
+
+  <title>
+      The Rebaze Way - Developer Experience Consulting Boutique
+  </title>
+    <link href='https://fonts.googleapis.com/css?family=Lora:400,400italic|Work+Sans:300,400,500,600' rel='stylesheet' type='text/css'>
+    <link href="/assets/css/toolkit-startup.css" rel="stylesheet">
+    <link href="/assets/css/application-startup.css" rel="stylesheet">
+    <link href="/assets/css/syntax.css" rel="stylesheet">
+	
+</head>
+
+
+  <body>
+  <div class="container">
+      <div class="row">
+  <div class="col-sm-8">
+    <div class="p-4">
+      <h3 class="statcard-number">
+		  <div class="media">
+		    <a href="/"><img class="align-self-start mr-3" src="/assets/c9_icon.png" alt="Generic placeholder image" width="75px" height="75px"></a>
+		    <div class="media-body">
+		      <h3>The Rebaze Way</h3>
+		      <h5>the developer experience consulting boutique</h5>					  	  
+		    </div>
+		  </div>
+		  
+      </h3>
+    </div>
+  </div>
+  
+  <div class="col-sm-4">
+    <div class="p-4">
+		<a href="/hello.html">
+      <button type="button" class="btn btn-lg btn-success"><span class="icon icon-users"></span>&nbsp;
+        Become a client</button>
+	</a>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row border border-right-0 border-left-0 border-bottom-0" style="padding-top: 2rem;">
+    </div>
+  </div>
+
+
+
+<div class="row"><h1>&nbsp;</h1></div></div>
+  <div class="container">
+    <div class="row">
+  <div class="col-12 col-md-8">
+    <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header class="post-header">
+    <h1 class="post-title" itemprop="name headline"><a href="/thoughts/osgi">OSGi or Modular Java</a></h1>
+    <p class="post-meta">
+      <time datetime="2018-07-20T13:12:40+02:00" itemprop="datePublished">
+        
+        Jul 20, 2018
+      </time> &nbsp; | &nbsp;
+      <a href="https://github.com/confidence/confidence.github.com/edit/master/_thoughts/osgi.md" target="_blank" class="forkButton">
+  <svg viewBox="0 0 16 16" width="16px" height="16px"><path fill="#828282" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/></svg>
+
+  Fork on GitHub
+</a>
+
+  </header>
+
+  <div class="post-content" itemprop="articleBody">
+    
+
+  </div>
+
+  <p class="extra-info">
+    
+      Tags: testing &nbsp; | &nbsp;
+    
+    <a href="https://github.com/confidence/confidence.github.com/edit/master/_thoughts/osgi.md" target="_blank" class="forkButton">
+  <svg viewBox="0 0 16 16" width="16px" height="16px"><path fill="#828282" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/></svg>
+
+  Fork on GitHub
+</a>
+
+  </p>
+</article>
+
+  </div>
+    <div class="col-6 col-md-4">
+      <p></p>
+      <h3>About Rebaze</h3>
+      <p>The developer-focused consulting boutique. We specialize in developer experience & software testing. </p>
+
+      <h3>Recent posts</h3>
+      <ul class="iconlist">
+      
+
+        <li>
+    <span class="icon icon-check"></span>
+    <a href="/blog/joined-hafven">We joined Hafven Coworking</a>
+     </li>
+    
+
+        <li>
+    <span class="icon icon-check"></span>
+    <a href="/blog/gotober2017">Goto Berlin Conference 2017</a>
+     </li>
+    
+
+        <li>
+    <span class="icon icon-check"></span>
+    <a href="/blog/rebaze-confidence">Rebaze Confidence Articles</a>
+     </li>
+    </ul>
+      <h3>Opinionated Thoughts</h3>
+      <ul class="iconlist">
+      
+
+        <li>
+    <span class="icon icon-check"></span>
+    <a href="/thoughts/agile">Agile in the real world</a>
+  </li>
+ 
+
+        <li>
+    <span class="icon icon-check"></span>
+    <a href="/thoughts/java">Java</a>
+  </li>
+ 
+
+        <li>
+    <span class="icon icon-check"></span>
+    <a href="/thoughts/osgi">OSGi or Modular Java</a>
+  </li>
+ </ul>
+  </div>
+  
+  
+
+  </div>
+
+    </div>
+    <div class="container">
+  <div class="row" style="padding-top: 5rem;">
+  </div>
+</div>
+<div class="container border rounded">
+  <div class="row">
+    <div class="col-sm">
+	<div class="card" style="width: 20rem;">
+	  <div class="card-body">
+		 <p><a href="#">Services</a></p>
+	 	 <p><a href="#">Clients</a></p>
+   	 	 <p><a href="#">Privacy</a></p>
+      	 	 <p><a href="#">Contact</a></p>
+			
+	  </div>
+	</div>
+    </div>
+    <div class="col-sm">
+  	<div class="card" style="width: 20rem;">
+  	  <div class="card-body">
+  	    <h4 class="card-title">Developer Priority Lane</h4>
+  	    <h6 class="card-subtitle mb-2 text-muted">developers@rebaze.com</h6>
+  	  </div>
+  	</div>
+   
+    </div>
+    <div class="col-sm">
+    	<div class="card" style="width: 20rem;">
+    	  <div class="card-body">
+    	    <h4 class="card-title">Rebaze GmbH</h4>
+    	    <h6 class="card-subtitle mb-2 text-muted">Developer HQ</h6>
+    	    <p class="card-text">Zollstrasse 6<BR/>39114 Magdeburg<BR/>Germany</p>
+    	    <a href="#" class="card-link">Twitter</a>
+    	    <a href="#" class="card-link">Github</a>
+    	  </div>
+    	</div>
+        </div>
+    </div>
+  </div>
+</div> 
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/popper.min.js"></script>
+<script src="assets/js/toolkit.js"></script>
+<script src="assets/js/application.js"></script>
+
+
+  </body>
+
+</html>
